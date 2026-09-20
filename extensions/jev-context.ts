@@ -1,5 +1,6 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 import { anticipateContext, type AnticipationState, type TypeSafeClientLike } from "../lib/jev-context.js";
+import { localToolPlan } from "../lib/jev-tool-plan.js";
 
 const SDK_MODULE = "@typesafe-ai/sdk";
 
@@ -31,7 +32,9 @@ export default function jevContext(pi: ExtensionAPI): void {
     async execute(_toolCallId, params) {
       const state = params as AnticipationState;
       const recommendation = await anticipateContext(state, await optionalClient());
-      return { content: [{ type: "text", text: JSON.stringify(recommendation, null, 2) }], details: recommendation };
+      const plan = localToolPlan(state.intent);
+      const result = { ...recommendation, toolPlan: plan };
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }], details: result };
     },
   });
 }

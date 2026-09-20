@@ -19,9 +19,9 @@ The source checkout currently prepares `gentle-pi` `3.3.0` with a package-local 
 
 ## Optional TypeSafe/Jev context anticipation
 
-The `anticipate_context` Pi tool is read-only and advisory. It sends only a bounded, redacted project state to TypeSafe when `@typesafe-ai/sdk` and `TYPESAFE_API_KEY` are available. Jev returns typed routing questions (`choice`/`noul`) for model route and effort; low confidence, missing credentials, rate limits, and SDK failures use deterministic local routing. It cannot edit files, run commands, approve review, or choose delivery.
+The `anticipate_context` Pi tool is read-only and advisory. It sends only a bounded, redacted project state to TypeSafe when `@typesafe-ai/sdk` and `TYPESAFE_API_KEY` are available. Jev returns typed routing questions (`choice`/`noul`) for model route and effort and a bounded tool plan; low confidence, missing credentials, rate limits, and SDK failures use deterministic local routing. Gentle validates the plan against a read-only allowlist, caps it at three steps, runs independent steps in parallel, and feeds only summaries back to the model. It cannot edit files, run arbitrary commands, approve review, or choose delivery.
 
-Install the optional SDK with `pnpm install`, then set `TYPESAFE_API_KEY` in the environment or point `TYPESAFE_ENV_PATH` at an ignored local env file. The focused workflow benchmark is `node --experimental-strip-types --test tests/jev-context.test.ts`; it exercises redaction, fallback, confidence gates, and 100 local decisions with a p95 latency guard.
+Install the optional SDK with `pnpm install`, then set `TYPESAFE_API_KEY` in the environment or point `TYPESAFE_ENV_PATH` at an ignored local env file. The focused workflow tests are `node --experimental-strip-types --test tests/jev-context.test.ts tests/jev-tool-plan.test.ts tests/jev-workflow.e2e.test.ts`; they exercise redaction, fallback, confidence gates, bounded tool planning, parallel execution, summaries, and 100 local decisions with a p95 latency guard.
 
 ## Shell interactions and runtime behavior
 

@@ -23,7 +23,8 @@ Add an optional, read-only Gentle Shell capability that sends a bounded project 
 - [x] Add tests for payload redaction, confidence gates, and unavailable-key fallback.
 - [x] Add a Pi extension tool (`anticipate_context`) for quick anticipation.
 - [x] Add a local workflow performance benchmark (100 iterations, p95 guard).
+- [x] Add a bounded JEV-selected read-only tool plan with max-three steps and parallel execution.
 - [x] Install missing package skills into the Codex skills directory without overwriting existing skills.
 - [x] Add a shared project-context skill with bounded-read and cost-aware rules.
 - [ ] Update docs and skill registry if a new skill is added.
-- [x] Run targeted checks and record evidence.
+- [x] Run targeted checks and record evidence, including the end-to-end fake-JEV workflow.
